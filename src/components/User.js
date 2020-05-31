@@ -6,7 +6,8 @@ class User extends React.Component {
     super();
     this.state = {
       email: '',
-      fullname: ''
+      fullname: '',
+      status: false
     };
   }
 
@@ -18,21 +19,22 @@ class User extends React.Component {
 
   addUser = e => {
     e.preventDefault();
-    
     const db = firebase.firestore();
-
+    
     db.settings({
       timestampsInSnapshots: true
     });
 
     db.collection('users').add({
       fullname: this.state.fullname,
-      email: this.state.email
+      email: this.state.email,
+      status: false
     });
 
     this.setState({
       fullname: '',
-      email: ''
+      email: '',
+      status: false
     });
   };
 
@@ -49,7 +51,7 @@ class User extends React.Component {
         <input
           type="email"
           name="email"
-          placeholder="Full name"
+          placeholder="email"
           onChange={this.updateInput}
           value={this.state.email}
         />
